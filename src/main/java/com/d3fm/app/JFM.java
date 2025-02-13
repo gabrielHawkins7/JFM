@@ -3,13 +3,17 @@ package com.d3fm.app;
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import com.googlecode.lanterna.screen.*;
 import com.googlecode.lanterna.terminal.*;
+import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.bundle.LanternaThemes;
 import com.googlecode.lanterna.gui2.*;
 import com.googlecode.lanterna.gui2.LinearLayout.GrowPolicy;
+import com.googlecode.lanterna.input.KeyStroke;
+import com.googlecode.lanterna.input.KeyType;
 
 
 
@@ -78,30 +82,62 @@ public class JFM{
                     LinearLayout.createLayoutData(LinearLayout.Alignment.Fill, GrowPolicy.CanGrow));
         
         window.setComponent(main_panel.withBorder(Borders.singleLine("JFM")));
-        //JFB jfbWin = new JFB("JFM", screen.getTerminalSize());
+        
+        initKeyCommands();
+        
+        
         gui.addWindowAndWait(window);
         
     }
     
+    private void initKeyCommands(){
+        window.addWindowListener(new WindowListener() {
+
+			@Override
+			public void onInput(Window basePane, KeyStroke keyStroke, AtomicBoolean deliverEvent) {
+			         if(keyStroke.getCharacter() == Character.valueOf('h') && keyStroke.isAltDown()){
+                        show_hidden = (show_hidden)? false : true;
+                        JFB.reload(current_dir);
+                    }
+                    if(keyStroke.getKeyType() == KeyType.ArrowUp && keyStroke.isAltDown()){
+                        JFB.reload(current_dir);
+                    }
+			}
+
+			@Override
+			public void onUnhandledInput(Window basePane, KeyStroke keyStroke, AtomicBoolean hasBeenHandled) {return;}
+
+			@Override
+			public void onResized(Window window, TerminalSize oldSize, TerminalSize newSize) {
+			     JFB.fileBox.setSize(new TerminalSize((int)(newSize.getColumns() * .7), newSize.getRows()));
+			}
+
+			@Override
+			public void onMoved(Window window, TerminalPosition oldPosition, TerminalPosition newPosition) {return;}
+            
+        });
+    }
+    
     public static void global_reload(File dir){
-        JFB_2.reload(dir);
+        JFB.reload(dir);
         JFSearchBox.reload_search(dir);
     }
     
     private static void initBrowerBox(){
         //fileBox = getFileBox(new TerminalSize((int)(term_size.getColumns() * 0.7), term_size.getRows()));
         contnet_panel.addComponent(
-                    JFB_2.init(new TerminalSize((int)(size.getColumns() * .7), size.getRows()))
+                    JFB.init(new TerminalSize((int)(size.getColumns() * .7), size.getRows()))
                     .withBorder(Borders.singleLine())
         );
     }
     
     public static void openFile(File f){
-        if(!f.canExecute()) return;
+        
         try
         {
             if(open_mode == OPEN_MODE.EXE)
             {
+                if(!f.canExecute()) return;
                 runProgram(f.getAbsolutePath());
             }else
             {
