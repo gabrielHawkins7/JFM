@@ -1,4 +1,4 @@
-target
+target/*
 *.sh
 d3fm-app
 .zed
