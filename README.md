@@ -9,3 +9,4 @@
 * Add a search function
 * Investigate Cross Platform Support
 * Get a release done
+* Try to get native working
