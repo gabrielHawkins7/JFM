@@ -6,11 +6,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 
+import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.gui2.*;
 import com.googlecode.lanterna.gui2.LinearLayout.GrowPolicy;
 import com.googlecode.lanterna.gui2.TextBox.TextChangeListener;
+import com.googlecode.lanterna.input.KeyStroke;
 
 public class JFB extends BasicWindow{
     static boolean show_hidden;
@@ -37,6 +40,33 @@ public class JFB extends BasicWindow{
         this.setHints(Arrays.asList(Window.Hint.FULL_SCREEN, Window.Hint.CENTERED, Window.Hint.NO_DECORATIONS));
         term_size = size;
         init();
+        
+        this.addWindowListener(new WindowListener() {
+
+			@Override
+			public void onInput(Window basePane, KeyStroke keyStroke, AtomicBoolean deliverEvent) {
+    			if(keyStroke.getCharacter() == Character.valueOf('h')){
+                    show_hidden = (show_hidden)? false : true;
+                    reload(current_dir);
+                }
+			}
+
+			@Override
+			public void onUnhandledInput(Window basePane, KeyStroke keyStroke, AtomicBoolean hasBeenHandled) {
+				
+			}
+
+			@Override
+			public void onResized(Window window, TerminalSize oldSize, TerminalSize newSize) {
+				
+			}
+
+			@Override
+			public void onMoved(Window window, TerminalPosition oldPosition, TerminalPosition newPosition) {
+				
+			}
+            
+        });
     }
     
     
@@ -57,6 +87,9 @@ public class JFB extends BasicWindow{
         openModeBox = getOpenModeBox();
         openModeBox.setLayoutData(LinearLayout.createLayoutData(LinearLayout.Alignment.Center));
         rightPanel.addComponent(openModeBox.withBorder(Borders.singleLine()));
+        
+        
+        
         contentPanel.addComponent(rightPanel, LinearLayout.createLayoutData(LinearLayout.Alignment.Fill, GrowPolicy.CanGrow));
         
         

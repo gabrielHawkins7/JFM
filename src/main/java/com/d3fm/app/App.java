@@ -11,6 +11,7 @@ import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.bundle.LanternaThemes;
 import com.googlecode.lanterna.graphics.SimpleTheme;
 import com.googlecode.lanterna.gui2.*;
+import com.googlecode.lanterna.gui2.Button.DefaultButtonRenderer;
 import com.googlecode.lanterna.screen.Screen;
 import com.googlecode.lanterna.screen.TerminalScreen;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
@@ -62,13 +63,18 @@ public class App {
         // gui.addWindowAndWait(window);
         // screen.stopScreen();
         // 
-        JFM jfm_main = new JFM();
+        // 
+        int test = pullin();
+        JFM jfm_main = new JFM("nano");
         
         
         return;
         
     }
     
+    static int pullin(){
+        return WindowShadowRenderer.class.toString().length() +FatWindowDecorationRenderer.class.toString().length() +DefaultButtonRenderer.class.toString().length();
+    }
     
     
     static void runProgramOn(String prog, String fn) throws IOException{

@@ -1,0 +1,79 @@
+[
+{
+  "name":"com.googlecode.lanterna.gui2.AbstractBorder"
+},
+{
+  "name":"com.googlecode.lanterna.gui2.AbstractListBox"
+},
+{
+  "name":"com.googlecode.lanterna.gui2.Borders$DoubleLine"
+},
+{
+  "name":"com.googlecode.lanterna.gui2.Borders$SingleLine"
+},
+{
+  "name":"com.googlecode.lanterna.gui2.Button"
+},
+{
+  "name":"com.googlecode.lanterna.gui2.CheckBox"
+},
+{
+  "name":"com.googlecode.lanterna.gui2.CheckBoxList"
+},
+{
+  "name":"com.googlecode.lanterna.gui2.ComboBox"
+},
+{
+  "name":"com.googlecode.lanterna.gui2.DefaultWindowDecorationRenderer"
+},
+{
+  "name":"com.googlecode.lanterna.gui2.FatWindowDecorationRenderer",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"com.googlecode.lanterna.gui2.GUIBackdrop"
+},
+{
+  "name":"com.googlecode.lanterna.gui2.ProgressBar"
+},
+{
+  "name":"com.googlecode.lanterna.gui2.RadioBoxList"
+},
+{
+  "name":"com.googlecode.lanterna.gui2.ScrollBar"
+},
+{
+  "name":"com.googlecode.lanterna.gui2.Separator"
+},
+{
+  "name":"com.googlecode.lanterna.gui2.TextBox"
+},
+{
+  "name":"com.googlecode.lanterna.gui2.WindowShadowRenderer",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"com.googlecode.lanterna.gui2.menu.MenuItem"
+},
+{
+  "name":"com.googlecode.lanterna.gui2.table.Table"
+},
+{
+  "name":"com.googlecode.lanterna.terminal.NativeGNULinuxTerminal"
+},
+{
+  "name":"java.util.concurrent.ForkJoinTask",
+  "fields":[{"name":"aux"}, {"name":"status"}]
+},
+{
+  "name":"jdk.internal.misc.Unsafe"
+},
+{
+  "name":"sun.misc.Signal",
+  "queryAllDeclaredMethods":true,
+  "methods":[{"name":"<init>","parameterTypes":["java.lang.String"] }, {"name":"handle","parameterTypes":["sun.misc.Signal","sun.misc.SignalHandler"] }]
+},
+{
+  "name":"sun.misc.SignalHandler"
+}
+]
