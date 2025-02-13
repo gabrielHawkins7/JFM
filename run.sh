@@ -1,0 +1,1 @@
+mvn exec:java -Dexec.mainClass=com.d3fm.app.App

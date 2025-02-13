@@ -1,0 +1,1 @@
+mvn package && java -cp target/d3fm-app-1.0-SNAPSHOT.jar com.d3fm.app.App
