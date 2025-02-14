@@ -1,7 +1,8 @@
 # JFM
 ### Cool simple file manager to browse folders and files.
 ### Uses multiple terminal buffers to enable running nano/vim/etc without loosing context
-<img width="1440" alt="image" src="https://github.com/user-attachments/assets/3937daa8-2f75-4c70-bcbb-30d010c67cb4" />
+<img width="797" alt="image" src="https://github.com/user-attachments/assets/2725e7c2-927d-413d-9644-baade3766cc3" />
+
 
 ## TODO
 * Make the windows more modular
