@@ -25,11 +25,11 @@ public class JFM{
     static WindowBasedTextGUI gui;
     static Window window;
     static Panel main_panel;
+    static Panel bottom_panel;
     static File current_dir;
     static boolean show_hidden; 
     static Label dir_label;   
-    static Panel contnet_panel;
-    static Panel right_panel;
+   
     static OPEN_MODE open_mode;
     static enum OPEN_MODE{
         EXE,TXT
@@ -58,28 +58,23 @@ public class JFM{
                     .setLayoutData(LinearLayout
                     .createLayoutData(LinearLayout.Alignment.Fill)));
 
-        contnet_panel= new Panel(new LinearLayout(Direction.HORIZONTAL));
-        main_panel.addComponent(contnet_panel, LinearLayout.createLayoutData(LinearLayout.Alignment.Fill));
         
-        initBrowerBox();
+        main_panel.addComponent(
+                    JFB.init(size), 
+                    LinearLayout.createLayoutData(LinearLayout.Alignment.Fill, GrowPolicy.CanGrow)
+        );
+       
+        bottom_panel = new Panel(new LinearLayout(Direction.HORIZONTAL));
+        main_panel.addComponent(
+                    bottom_panel.withBorder(Borders.singleLine()),
+                    LinearLayout.createLayoutData(LinearLayout.Alignment.Fill)
+        );
         
+        bottom_panel.addComponent(
+                    StatusBar.init(),
+                    LinearLayout.createLayoutData(LinearLayout.Alignment.Center, GrowPolicy.CanGrow)
+        );
         
-        right_panel = new Panel(new LinearLayout(Direction.VERTICAL));
-        contnet_panel.addComponent(
-                    right_panel, 
-                    LinearLayout.createLayoutData(LinearLayout.Alignment.Fill, GrowPolicy.CanGrow));
-        right_panel.addComponent(
-                    new Label("Open Mode")
-                    .setLayoutData(LinearLayout.createLayoutData(LinearLayout.Alignment.Center)));
-        right_panel.addComponent(JFModeBox.
-                    getOpenModeBox().
-                    setLayoutData(LinearLayout.createLayoutData(LinearLayout.Alignment.Center))
-                    .withBorder(Borders.singleLine()));
-        
-        right_panel.addComponent(JFSearchBox
-                    .getSearchBoxPanel()
-                    .withBorder(Borders.singleLine()), 
-                    LinearLayout.createLayoutData(LinearLayout.Alignment.Fill, GrowPolicy.CanGrow));
         
         window.setComponent(main_panel.withBorder(Borders.singleLine("JFM")));
         
@@ -98,9 +93,46 @@ public class JFM{
 			         if(keyStroke.getCharacter() == Character.valueOf('h') && keyStroke.isAltDown()){
                         show_hidden = (show_hidden)? false : true;
                         JFB.reload(current_dir);
+                        StatusBar.status_update();
                     }
                     if(keyStroke.getKeyType() == KeyType.ArrowUp && keyStroke.isAltDown()){
                         JFB.reload(current_dir);
+                        StatusBar.status_update();
+                    }
+                    if(keyStroke.getCharacter() == Character.valueOf('e') && keyStroke.isAltDown()){
+                        open_mode = (open_mode == OPEN_MODE.EXE)? OPEN_MODE.TXT : OPEN_MODE.EXE;
+                        StatusBar.status_update();
+                    }
+                    if(keyStroke.getCharacter() == Character.valueOf('s') && keyStroke.isAltDown()){
+                        Window search = new BasicWindow("Search");
+                        search.setHints(Arrays.asList(Window.Hint.CENTERED));
+                        search.setComponent(JFSearchBox.getSearchBoxPanel());
+                        search.addWindowListener(new WindowListener() {
+							@Override
+							public void onInput(Window basePane, KeyStroke keyStroke, AtomicBoolean deliverEvent) {
+								if(keyStroke.getKeyType() == KeyType.Escape){
+								    search.close();
+								}
+								 if(keyStroke.getCharacter() == Character.valueOf('s') && keyStroke.isAltDown()){
+									   search.close();
+								}
+							}
+							@Override
+							public void onUnhandledInput(Window basePane, KeyStroke keyStroke,
+									AtomicBoolean hasBeenHandled) {
+								return;
+							}
+							@Override
+							public void onResized(Window window, TerminalSize oldSize, TerminalSize newSize) {
+							 return;
+							}
+							@Override
+							public void onMoved(Window window, TerminalPosition oldPosition,
+									TerminalPosition newPosition) {
+									return;
+							}
+                        });
+                        gui.addWindowAndWait(search);
                     }
 			}
 
@@ -121,15 +153,10 @@ public class JFM{
     public static void global_reload(File dir){
         JFB.reload(dir);
         JFSearchBox.reload_search(dir);
+        StatusBar.status_update();
     }
     
-    private static void initBrowerBox(){
-        //fileBox = getFileBox(new TerminalSize((int)(term_size.getColumns() * 0.7), term_size.getRows()));
-        contnet_panel.addComponent(
-                    JFB.init(new TerminalSize((int)(size.getColumns() * .7), size.getRows()))
-                    .withBorder(Borders.singleLine())
-        );
-    }
+    
     
     public static void openFile(File f){
         

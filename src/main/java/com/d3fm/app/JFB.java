@@ -7,15 +7,17 @@ import java.util.Comparator;
 
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.gui2.ActionListBox;
+import com.googlecode.lanterna.gui2.LinearLayout;
 
 class JFB{
     static ActionListBox fileBox;
     
     public static ActionListBox init(TerminalSize size){
         if(fileBox == null){
-            fileBox = new ActionListBox(size);
+            fileBox = new ActionListBox();
             
         }
+        
         reload(JFM.current_dir);
         return fileBox;
     }

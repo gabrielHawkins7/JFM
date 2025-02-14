@@ -25,19 +25,18 @@ class JFSearchBox {
     public static Panel getSearchBoxPanel(){
         search_box_panel = new Panel(new LinearLayout(Direction.VERTICAL));
         
-        search_box_panel.addComponent(
-                    new Label("Search")
-                    .setLayoutData(LinearLayout.createLayoutData(LinearLayout.Alignment.Center)));
+        // search_box_panel.addComponent(
+        //             new Label("Close:<esc>")
+        //             .setLayoutData(LinearLayout.createLayoutData(LinearLayout.Alignment.Fill)));
         search_box_panel.addComponent(
                     new TextBox("")
-                    .setLayoutData(LinearLayout.createLayoutData(LinearLayout.Alignment.Center))
+                    .setLayoutData(LinearLayout.createLayoutData(LinearLayout.Alignment.Fill))
                     .setTextChangeListener(new TextChangeListener() 
                         {
     						@Override
     						public void onTextChanged(String newText, boolean changedByUserInteraction) {
     							query = newText;
                                 reload_search(JFM.current_dir);
-                                JFM.dir_label.setText(newText);
     						}
                         })
                     .withBorder(Borders.singleLine())
