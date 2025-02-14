@@ -7,7 +7,7 @@
 ## TODO
 * Make the windows more modular - Kinda done, need to abstract the search window more.
 * Add support for changing default behavior
-* Add a search function - DONE
+* Add a search function - DONE, at some point investigate a better algo
 * Investigate Cross Platform Support
 * Get a release done
 * Try to get native working
